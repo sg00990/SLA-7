@@ -25,6 +25,11 @@ fields_passed = st.number_input("fields_passed", label_visibility="collapsed")
 st.write("**Percentage**")
 perc = st.number_input("perc", label_visibility="collapsed")
 
+st.write("**Date**")
+survey_date = st.date_input("survey_date", format="MM/DD/YYYY", label_visibility="collapsed")
+st.write("**Additional Comments**")
+survey_text = st.text_area("survey_text", label_visibility="collapsed")
+
 
 col1, col2, col3 = st.columns(3)
 
