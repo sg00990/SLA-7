@@ -4,7 +4,7 @@ import datetime
 import json
 
 st.set_page_config(
-    page_title="Tier 1 SLA Questionnaire",
+    page_title="SLA 7 Questionnaire",
     page_icon="💻",
     layout="wide"
 )
@@ -16,10 +16,6 @@ st.write("###")
 
 st.markdown('<p style="font-family:sans-serif; color:#87c440; font-size: 20px; font-weight: bold">SLA 7</p>', unsafe_allow_html=True)
 
-
-st.write("**Reason for Failed SLA**")
-reason = st.text_area("reason", label_visibility="collapsed")
-reason = reason.replace("\n", "  ").replace("'", "''").replace('"', r'\"')
 
 st.write("**Total Possible Fields**")
 total_fields = st.number_input("total_fields", step=1, min_value = 0, label_visibility="collapsed")
@@ -42,7 +38,6 @@ col1, col2, col3 = st.columns(3)
 with col3:
     if st.button("Submit", use_container_width=True):
         data = {
-            "sla_7_reason_for_failure": reason,
             "sla_7_possible_fields": total_fields,
             "sla_7_fields_passed": fields_passed,
             "sla_7_percentage": perc,
