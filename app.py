@@ -33,7 +33,7 @@ this_month = datetime.now().month
 
 st.write("**Month Reviewed**")
 month_abbr = month_abbr[1:]
-month_str = st.selectbox("month", options=month_abbr, label_visibility="collapsed")
+month_str = st.selectbox("month", options=month_abbr, index=this_month, label_visibility="collapsed")
 month_reviewed = month_abbr.index(month_str) + 1
 
 st.write("**Year Reviewed**")
