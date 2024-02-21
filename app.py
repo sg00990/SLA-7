@@ -1,7 +1,8 @@
 import streamlit as st
 import time
-import datetime
+from datetime import datetime
 import json
+from calendar import month_abbr
 
 st.set_page_config(
     page_title="SLA 7 Questionnaire",
@@ -26,8 +27,20 @@ fields_passed = st.number_input("fields_passed", step=1, min_value = 0, label_vi
 st.write("**Percentage**")
 perc = st.number_input("perc", label_visibility="collapsed")
 
-st.write("**Date**")
-survey_date = st.date_input("survey_date", format="MM/DD/YYYY", label_visibility="collapsed")
+
+this_year = datetime.now().year
+this_month = datetime.now().month
+
+st.write("**Month Reviewed**")
+month_abbr = month_abbr[1:]
+month_str = st.selectbox("month", options=month_abbr, label_visibility="collapsed")
+month_reviewed = month_abbr.index(month_str) + 1
+
+st.write("**Year Reviewed**")
+year_reviewed = st.selectbox("year", range(this_year, this_year - 10, -1), label_visibility="collapsed")
+
+date_reviewed = datetime(year_reviewed, month_reviewed, 1)
+
 st.write("**Additional Comments**")
 survey_text = st.text_area("survey_text", label_visibility="collapsed")
 survey_text = survey_text.replace("\n", "  ").replace("'", "''").replace('"', r'\"')
@@ -41,13 +54,13 @@ with col3:
             "sla_7_possible_fields": total_fields,
             "sla_7_fields_passed": fields_passed,
             "sla_7_percentage": perc,
-            "sla_7_date": survey_date,
+            "sla_7_date_reviewed"
             "sla_7_comments": survey_text
         }
 
         json_data = json.dumps(data, indent=4, sort_keys=True, default=str)
 
-        date_submitted = datetime.datetime.now()
+        date_submitted = datetime.now()
 
         try:
             conn.query(f""" INSERT INTO sla_tier_1_questionnaire (type, date_submitted, json_data) SELECT 'SLA 7', '{date_submitted}', (parse_json('{json_data}'))""")
