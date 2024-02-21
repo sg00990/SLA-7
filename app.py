@@ -54,7 +54,7 @@ with col3:
             "sla_7_possible_fields": total_fields,
             "sla_7_fields_passed": fields_passed,
             "sla_7_percentage": perc,
-            "sla_7_date_reviewed"
+            "sla_7_date_reviewed": date_reviewed,
             "sla_7_comments": survey_text
         }
 
